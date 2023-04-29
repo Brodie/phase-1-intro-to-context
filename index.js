@@ -22,6 +22,7 @@ function createTimeInEvent(empObj, dateStr) {
   });
   return empObj;
 }
+
 function createTimeOutEvent(empObj, dateStr) {
   empObj.timeOutEvents.push({
     type: "TimeOut",
@@ -30,6 +31,7 @@ function createTimeOutEvent(empObj, dateStr) {
   });
   return empObj;
 }
+
 function hoursWorkedOnDate(empObj, dateStr) {
   let timeInEvent = empObj.timeInEvents.find((event) => event.date === dateStr);
   let timeOutEvent = empObj.timeOutEvents.find(
@@ -46,6 +48,7 @@ function hoursWorkedOnDate(empObj, dateStr) {
 function wagesEarnedOnDate(empObj, dateStr) {
   return parseInt(hoursWorkedOnDate(empObj, dateStr) * empObj.payPerHour);
 }
+
 function allWagesFor(empObj) {
   let totalWages = 0;
   for (let i = 0; i < empObj.timeInEvents.length; i++) {
@@ -55,5 +58,5 @@ function allWagesFor(empObj) {
   return totalWages;
 }
 function calculatePayroll(arr) {
-  return arr.reduce(allWagesFor);
+  return arr.reduce((accum, employee) => accum + allWagesFor(employee), 0);
 }
